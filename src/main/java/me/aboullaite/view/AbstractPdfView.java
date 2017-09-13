@@ -40,7 +40,7 @@ public abstract class AbstractPdfView extends AbstractView {
         final ByteArrayOutputStream baos = createTemporaryOutputStream();
 
         // Apply preferences and build metadata.
-        final Document document = new Document(PageSize.A4.rotate(), 36, 36, 54, 36);
+        final Document document = new Document(PageSize.A4, 36, 36, 54, 36);
         final PdfWriter writer = PdfWriter.getInstance(document, baos);
         prepareWriter(model, writer, request);
         buildPdfMetadata(model, document, request);

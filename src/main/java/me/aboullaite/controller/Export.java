@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import me.aboullaite.service.UserService;
+import me.aboullaite.service.EmployeeService;
 import me.aboullaite.view.PdfView;
 
 /**
@@ -17,14 +17,14 @@ import me.aboullaite.view.PdfView;
 public class Export {
 
     @Autowired
-    UserService userService;
+    EmployeeService userService;
 
     /**
      * Handle request to download an Excel document
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public PdfView download(final Model model) {
-        model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("users", userService.findAll());
         final PdfView view = new PdfView();
         return view;
     }
