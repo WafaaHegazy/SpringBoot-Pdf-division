@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
@@ -25,7 +26,7 @@ public class PdfView extends AbstractPdfView {
 
     public static final String[] LANGUAGES = { "la", "en", "fr" };
 
-    public static final Rectangle[] RECTANGLES = { new Rectangle(36, 270, 123, 559), new Rectangle(270, 575, 806, 123), new Rectangle(36, 36, 559, 261) };
+    public static final Rectangle[] RECTANGLES = { new Rectangle(36, 270, 123, 559), new Rectangle(270, 270, 806, 559), new Rectangle(36, 36, 559, 261) };
 
     @Override
     protected void buildPdfDocument(final Map<String, Object> model, final Document document, final PdfWriter writer, final HttpServletRequest request,
@@ -55,6 +56,7 @@ public class PdfView extends AbstractPdfView {
             while (addColumns(columns)) {
 
                 for (int la = 0; la < fields.size(); la++) {
+
                     columns[la].setSimpleColumn(RECTANGLES[la]);
 
                 }
@@ -75,6 +77,8 @@ public class PdfView extends AbstractPdfView {
 
     private ColumnText createColumn(final PdfContentByte cb, final int i, final String la, final Rectangle rect) {
         final ColumnText ct = new ColumnText(cb);
+        rect.setBorder(Rectangle.BOX);
+        rect.setBorderColor(BaseColor.BLUE);
         ct.setSimpleColumn(rect);
 
         final Phrase p = new Phrase(la);
