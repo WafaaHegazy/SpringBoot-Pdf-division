@@ -8,14 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import me.aboullaite.model.Employee;
@@ -53,13 +59,10 @@ public class PdfViewTest extends AbstractPdfView {
         new Phrase("header");
 
         for (final Employee e : emp) {
-
-            addContent(ct, e, document);
-
+            addContent(canvas, ct, e, document);
             float height = getNecessaryHeight(ct);
             // float height = 270;
-            addContent(ct, e, document);
-
+            addContent(canvas, ct, e, document);
             Rectangle left;
             final float top = COLUMNS[0].getTop();
             final float middle = (COLUMNS[0].getLeft() + COLUMNS[1].getRight()) / 2;
@@ -86,7 +89,6 @@ public class PdfViewTest extends AbstractPdfView {
                 status = ct.go();
                 height -= COLUMNS[1].getTop() - ct.getYLine();
                 // new page
-                // document.newPage();
                 break;
             }
 
@@ -107,8 +109,15 @@ public class PdfViewTest extends AbstractPdfView {
         return -ct.getYLine();
     }
 
-    private void addContent(final ColumnText ct, final Employee e, final Document document) throws DocumentException {
-
+    private void addContent(final PdfContentByte canvas,final ColumnText ct, final Employee e, final Document document) throws DocumentException {
+    	float x = document.right() / 2 ;
+    	float y = document.top() + 25;
+    	float o = 0;
+    	Chunk c = new Chunk("Header");
+    	c.setBackground(BaseColor.LIGHT_GRAY);
+    	c.setFont(new Font(FontFamily.TIMES_ROMAN, 10, Font.BOLDITALIC));
+    	Phrase ph = new Phrase(c);
+    	ct.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, y, o);
         final Anchor anchor = new Anchor("Chapter", catFont);
         anchor.setName("Chapter");
         ct.addElement(new Paragraph(anchor));
@@ -198,6 +207,4 @@ public class PdfViewTest extends AbstractPdfView {
 
         }
     }
-
-
 }
