@@ -110,16 +110,20 @@ public class PdfViewTest extends AbstractPdfView {
 
     private void addContent(final PdfContentByte canvas, final ColumnText ct, final Employee e, final Document document)
         throws DocumentException, MalformedURLException, IOException {
-        final float x = document.right() / 2 ;
-        final float y = document.top() + 25;
-        final float o = 0;
-        final Chunk c = new Chunk("Header");
-        c.setBackground(BaseColor.LIGHT_GRAY);
-        c.setFont(new Font(FontFamily.TIMES_ROMAN, 30, Font.BOLDITALIC));
-        final Phrase ph = new Phrase(c);
-        ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, y, o);
-
-        ct.addElement(new Paragraph(new Chunk("colum", catFont).setBackground(BaseColor.DARK_GRAY)));
+    	float x = (document.right() + document.left()) / 2 ;
+    	float y = document.top() + 20;
+    	Chunk c = new Chunk("Header");
+    	c.setFont(new Font(FontFamily.TIMES_ROMAN, 25, Font.BOLDITALIC));
+//    	Paragraph p = new Paragraph();
+//    	p.setLeading(fixedLeading);
+//    	Anchor anc = new Anchor(c);
+    	Phrase ph = new Phrase(c);
+    	Rectangle rect = new Rectangle(x - 290 , y, x + 290 , y +25);
+    	rect.setBackgroundColor(BaseColor.LIGHT_GRAY);
+    	
+    	canvas.rectangle(rect);
+    	
+    	ct.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, (y +3), 0);
 
         if (!e.getEmployeeEmail().equals("")) {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
