@@ -1,12 +1,13 @@
 package me.aboullaite.view;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -14,14 +15,12 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import me.aboullaite.model.Employee;
@@ -109,18 +108,18 @@ public class PdfViewTest extends AbstractPdfView {
         return -ct.getYLine();
     }
 
-    private void addContent(final PdfContentByte canvas,final ColumnText ct, final Employee e, final Document document) throws DocumentException {
-    	float x = document.right() / 2 ;
-    	float y = document.top() + 25;
-    	float o = 0;
-    	Chunk c = new Chunk("Header");
-    	c.setBackground(BaseColor.LIGHT_GRAY);
-    	c.setFont(new Font(FontFamily.TIMES_ROMAN, 10, Font.BOLDITALIC));
-    	Phrase ph = new Phrase(c);
-    	ct.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, y, o);
-        final Anchor anchor = new Anchor("Chapter", catFont);
-        anchor.setName("Chapter");
-        ct.addElement(new Paragraph(anchor));
+    private void addContent(final PdfContentByte canvas, final ColumnText ct, final Employee e, final Document document)
+        throws DocumentException, MalformedURLException, IOException {
+        final float x = document.right() / 2 ;
+        final float y = document.top() + 25;
+        final float o = 0;
+        final Chunk c = new Chunk("Header");
+        c.setBackground(BaseColor.LIGHT_GRAY);
+        c.setFont(new Font(FontFamily.TIMES_ROMAN, 30, Font.BOLDITALIC));
+        final Phrase ph = new Phrase(c);
+        ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, y, o);
+
+        ct.addElement(new Paragraph(new Chunk("colum", catFont).setBackground(BaseColor.DARK_GRAY)));
 
         if (!e.getEmployeeEmail().equals("")) {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
@@ -132,6 +131,8 @@ public class PdfViewTest extends AbstractPdfView {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
+            final Image img = Image.getInstance("C:\\Users\\waffaa\\Desktop\\try\\test.jpg");
+            ct.addElement(img);
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
@@ -157,6 +158,8 @@ public class PdfViewTest extends AbstractPdfView {
 
         }
         if (e.getEmployeeLastName() != null && !e.getEmployeeLastName().equals("")) {
+            ct.addElement(new Paragraph(new Chunk("paragraph", catFont).setBackground(BaseColor.LIGHT_GRAY)));
+
             ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
             ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
             ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
@@ -180,29 +183,30 @@ public class PdfViewTest extends AbstractPdfView {
 
         }
         if (!e.getEmployeeFirstName().equals("")) {
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph(new Chunk("Paragraph 2", catFont).setBackground(BaseColor.LIGHT_GRAY)));
 
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
             ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
 
         }
