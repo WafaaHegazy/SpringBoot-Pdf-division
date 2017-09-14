@@ -12,9 +12,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -30,7 +28,7 @@ public class PdfViewTest extends AbstractPdfView {
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
+    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.NORMAL, BaseColor.RED);
 
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
 
@@ -125,6 +123,7 @@ public class PdfViewTest extends AbstractPdfView {
     	
     	ct.showTextAligned(canvas, Element.ALIGN_CENTER, ph, x, (y +3), 0);
 
+        ct.addElement(new Paragraph(new Chunk("Paragraph 1", redFont).setBackground(BaseColor.DARK_GRAY)));
         if (!e.getEmployeeEmail().equals("")) {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
@@ -135,6 +134,7 @@ public class PdfViewTest extends AbstractPdfView {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
+            ct.addElement(new Paragraph(new Chunk("Image", catFont).setBackground(BaseColor.DARK_GRAY)));
             final Image img = Image.getInstance("C:\\Users\\waffaa\\Desktop\\try\\test.jpg");
             ct.addElement(img);
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
@@ -162,56 +162,56 @@ public class PdfViewTest extends AbstractPdfView {
 
         }
         if (e.getEmployeeLastName() != null && !e.getEmployeeLastName().equals("")) {
-            ct.addElement(new Paragraph(new Chunk("paragraph", catFont).setBackground(BaseColor.LIGHT_GRAY)));
+            ct.addElement(new Paragraph(new Chunk("paragraph 2", catFont).setBackground(BaseColor.LIGHT_GRAY)));
 
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
-            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
+            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeLastName()));
 
         }
         if (!e.getEmployeeFirstName().equals("")) {
-            ct.addElement(new Paragraph(new Chunk("Paragraph 2", catFont).setBackground(BaseColor.LIGHT_GRAY)));
+            ct.addElement(new Paragraph(new Chunk("Paragraph 3", catFont).setBackground(BaseColor.LIGHT_GRAY)));
 
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
-            ct.addElement(new Paragraph("Paragraph 2   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
+            ct.addElement(new Paragraph("Paragraph 3   " + e.getEmployeeFirstName()));
 
         }
     }
