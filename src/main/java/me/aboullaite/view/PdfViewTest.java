@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,6 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import me.aboullaite.model.Employee;
 
 public class PdfViewTest extends AbstractPdfView {
+
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 
@@ -48,11 +50,16 @@ public class PdfViewTest extends AbstractPdfView {
         final List<Employee> emp = (List<Employee>) model.get("users");
         final PdfContentByte canvas = writer.getDirectContent();
         final ColumnText ct = new ColumnText(canvas);
+        new Phrase("header");
+
         for (final Employee e : emp) {
+
             addContent(ct, e, document);
+
             float height = getNecessaryHeight(ct);
             // float height = 270;
             addContent(ct, e, document);
+
             Rectangle left;
             final float top = COLUMNS[0].getTop();
             final float middle = (COLUMNS[0].getLeft() + COLUMNS[1].getRight()) / 2;
@@ -87,6 +94,8 @@ public class PdfViewTest extends AbstractPdfView {
         }
     }
 
+
+
     private boolean checkHeight(float height) {
         height -= COLUMNS[0].getHeight() + COLUMNS[1].getHeight() + ERROR_MARGIN;
         return height > 0;
@@ -99,23 +108,10 @@ public class PdfViewTest extends AbstractPdfView {
     }
 
     private void addContent(final ColumnText ct, final Employee e, final Document document) throws DocumentException {
-        // // for (int i = 0; i < 35; i++) {
-        // // ct.addElement(new Paragraph(String.format("Paragraph %s: %s", i, TEXT)));
-        // // }
-        //
-        // int nom = 1;
-        // final Anchor anchor = new Anchor("Chapter" + nom, catFont);
-        // anchor.setName("Chapter" + nom);
-        //
-        // // Second parameter is the number of the chapter
-        // final Chapter catPart = new Chapter(new Paragraph(anchor), 1);
-        //
-        // Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-        // Section subCatPart = catPart.addSection(subPara);
-        // subCatPart.add(new Paragraph("Hello"));
-        //
-        // subPara = new Paragraph("Subcategory 2", subFont);
-        // subCatPart = catPart.addSection(subPara);
+
+        final Anchor anchor = new Anchor("Chapter", catFont);
+        anchor.setName("Chapter");
+        ct.addElement(new Paragraph(anchor));
 
         if (!e.getEmployeeEmail().equals("")) {
             ct.addElement(new Paragraph("Paragraph 1   " + e.getEmployeeEmail()));
@@ -203,27 +199,5 @@ public class PdfViewTest extends AbstractPdfView {
         }
     }
 
-
-
-    private boolean addColumns(final ColumnText[] columns) throws DocumentException {
-        int status = ColumnText.NO_MORE_TEXT;
-        for (final ColumnText column : columns) {
-            if (ColumnText.hasMoreText(column.go())) {
-                status = ColumnText.NO_MORE_COLUMN;
-            }
-        }
-        return ColumnText.hasMoreText(status);
-    }
-
-    private ColumnText createColumn(final PdfContentByte cb, final int i, final String la, final Rectangle rect) {
-        final ColumnText ct = new ColumnText(cb);
-        rect.enableBorderSide(Rectangle.BOX);
-        ct.setSimpleColumn(rect);
-        final Phrase p = new Phrase();
-        p.add(la);
-        ct.addText(p);
-        return ct;
-
-    }
 
 }
