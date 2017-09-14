@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import me.aboullaite.service.EmployeeService;
-import me.aboullaite.view.PdfView;
+import me.aboullaite.view.PdfViewTest;
 
-/**
- * Created by aboullaite on 2017-02-23.
- */
 
 @Controller
 public class Export {
@@ -19,13 +16,10 @@ public class Export {
     @Autowired
     EmployeeService userService;
 
-    /**
-     * Handle request to download an Excel document
-     */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public PdfView download(final Model model) {
+    public PdfViewTest download(final Model model) {
         model.addAttribute("users", userService.findAll());
-        final PdfView view = new PdfView();
+        final PdfViewTest view = new PdfViewTest();
         return view;
     }
 
